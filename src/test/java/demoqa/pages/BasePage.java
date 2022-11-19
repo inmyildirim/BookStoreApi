@@ -1,2 +1,4 @@
-package demoqa.pages;public class BasePage {
+package demoqa.pages;
+
+public class BasePage {
 }
