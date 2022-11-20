@@ -1,5 +1,6 @@
 package demoqa.step_definitions;
 
+import demoqa.pages.ResponseApiPage;
 import demoqa.utilities.ConfigurationReader;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -23,6 +24,7 @@ public class CreateUserSteps {
     String responseUserID;
     File outFile;
     PrintWriter outPut;
+    ResponseApiPage responsePage = new ResponseApiPage();
 
 
     @When("User sends a POST Request to create user end point")
@@ -31,18 +33,10 @@ public class CreateUserSteps {
         requestUsername = ConfigurationReader.get("userName");
         requestPassword = ConfigurationReader.get("password");
 
-        Map<String,String> requestBody = new LinkedHashMap<>();
-        requestBody.put("userName", requestUsername);
-        requestBody.put("password", requestPassword);
-
-        //endpoint of request
-        baseURI = ConfigurationReader.get("baseUrl");
-        basePath = ConfigurationReader.get("apiUser");
-
         //creating request to API
         response = given().accept(ContentType.JSON)
                 .and().contentType(ContentType.JSON)
-                .and().body(requestBody)
+                .and().body(responsePage.getRequestBody())
                 .when().post();
     }
 
